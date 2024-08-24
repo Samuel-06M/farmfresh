@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoultryPalace - Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="background-image">
+        <center><h1>Welcome back, {{ user.username }}!</h1></center>
+        {% if user.is_farmer %}
+            <p>
+                As a farmer, you can post your poultry products, view the products you have posted, and make any necessary changes.
+            </p>
+        {% else %}
+            <p>
+                As a customer, you can browse through the products posted by farmers, add them to your cart, and proceed to checkout with ease.
+            </p>
+        {% endif %}
+        <nav>
+            {% if user.is_farmer %}
+                <a href="{% url 'post_product' %}">Post Product</a>
+                <a href="{% url 'view_products' %}">View Your Products</a>
+            {% else %}
+                <a href="{% url 'view_products' %}">Browse Products</a>
+                <a href="{% url 'cart' %}">View Cart</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </div>
+</body>
+</html>

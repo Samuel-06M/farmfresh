@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cartstyles.css' %}">
+</head>
+<body>
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+        {% if cart.cartproduct_set.exists %}
+            <ul>
+                {% for cart_product in cart.cartproduct_set.all %}
+                    <li>
+                        <span>{{ cart_product.product.name }} - Quantity: {{ cart_product.quantity }}</span>
+                        <!-- Add buttons for increasing or decreasing quantity if needed -->
+                        <form action="{% url 'remove_from_cart' cart_product.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p>Total: ${{ cart.get_total_price }}</p> <!-- Assuming you add a method in the Cart model to calculate total price -->
+        {% else %}
+            <p>Your cart is empty.</p>
+        {% endif %}
+        <a href="{% url 'index' %}" class="btn">Continue Shopping</a>
+    </div>
+</body>
+</html>

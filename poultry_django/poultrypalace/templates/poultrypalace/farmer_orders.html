@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Farmer Orders</title>
+</head>
+<body>
+    <h1>Orders for Your Products</h1>
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Order Date</th>
+            <th>Status</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.customer.name }}</td>
+            <td>{{ order.product.name }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>{{ order.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

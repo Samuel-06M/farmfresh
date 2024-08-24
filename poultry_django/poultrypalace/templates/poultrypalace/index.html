@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoultryPalace</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="background-image">
+        <center><h1>Welcome to Poultry Palace</h1></center>
+        <p>
+            Welcome to Poultry Palace, your premier online destination for all things poultry. 
+            Whether you are a farmer looking to sell your fresh poultry products or a customer seeking high-quality, farm-to-table goods, you have come to the right place. 
+            <br>At Poultry Palace, we are dedicated to bridging the gap between farmers and consumers, ensuring a seamless and enjoyable experience for all. Farmers can easily post and manage their products, reaching a wider audience and boosting their sales. Customers can browse through a diverse range of poultry products, add them to their cart, and enjoy the convenience of online shopping with just a few clicks.</br> 
+
+            <br>Thank you for joining our community, and we look forward to serving you!</br>
+        </p> 
+
+        <nav>
+            {% if user.is_authenticated %}
+                {% if user.is_farmer %}
+                    <a href="{% url 'post_product' %}">Post Product</a>
+                {% else %}
+                    <a href="{% url 'cart' %}">View Cart</a>
+                    <a href="{% url 'add_to_cart' product_id=1 %}">Add Products to Cart</a> <!-- Adjust product_id as needed -->
+                {% endif %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </nav>
+    </div>
+</body>
+</html>
